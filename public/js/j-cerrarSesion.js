@@ -5,3 +5,4 @@ function cerrarSesion(){
 }
 
 cerrarSesionBtn.addEventListener('click', cerrarSesion);
+//
