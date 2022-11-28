@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
     <script src="../js/main.js" defer></script>
+    <script src="../js/j-cerrarSesion.js" defer></script>
 </head>
 <body>
     <nav>
@@ -34,7 +35,7 @@
                             <li><a href="#">Actualizar</a></li>
                             <li><a href="#">Informacion</a></li>
                             <li><a href="#">Logros</a></li>
-                            <li><a href="#">Cerrar Sesion</a></li>
+                            <li><a href="h-homeInicialCliente.html" target="_parent" id="cerrar-sesion">Cerrar Sesion</a></li>
                             
                         </ul>
                     </li>
@@ -67,8 +68,10 @@
 
     <!--CONTENIDO DE CADA UNO POR HACER RECETAS-EJERCICIOS-AYUNOS-PROGRESO-->
     <div class="banner-1">
+
     
         <form class="login-info">
+            <p id="mensaje"></p>
             <div class="wrapper">
                 <div class="partes-login">
                     <label><b>Ingrese foto</b></label><br>

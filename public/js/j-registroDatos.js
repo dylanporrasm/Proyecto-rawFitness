@@ -4,8 +4,7 @@ const btnEnviar=document.getElementById("btn-aceptar");
 
 btnEnviar.addEventListener("click", ()=>{
   modificarUsuario();
-  return window.location.href = 'http://localhost:5000/html/h-subHome.html'
-
+  
 })
 
 image_input.addEventListener("change", function() {
@@ -28,6 +27,11 @@ function modificarUsuario() {
     peso: document.getElementById("peso").value,
     altura: document.getElementById("altura").value,
     correo
+
+  }
+  if(!datos.nombre || !datos.apellidos || !datos.nacimiento ){
+    document.getElementById("mensaje").innerText="Todos los campos son requeridos"
+    return
   }
 
   fetch("http://localhost:5000/usuarios/modificar", {
@@ -37,5 +41,11 @@ function modificarUsuario() {
       'Content-Type': 'application/json',
 
     }
+
   })
+  return window.location.href = 'http://localhost:5000/html/h-subHome.html'
 }
+
+
+  
+

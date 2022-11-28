@@ -19,8 +19,6 @@ btnEnviar.addEventListener("click", async function(evento) {
             } else {
                 return window.location.href = 'http://localhost:5000/html/h-registroDatos.html'
             }
-            
-           
         }
 
         if (usuario?.mensaje) {
