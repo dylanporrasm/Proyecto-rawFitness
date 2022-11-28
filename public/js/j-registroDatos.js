@@ -39,7 +39,7 @@ function modificarUsuario() {
   })
 }
 
-btnEnviar.addEventListener("click", async function(evento) { 
+/*btnEnviar.addEventListener("click", async function(evento) { 
   evento.preventDefault();
   const usuario = await obtenerUsuario();
   if (usuario?.nombre && usuario?.altura && usuario?.peso) {
@@ -51,4 +51,4 @@ btnEnviar.addEventListener("click", async function(evento) {
   }
 
   mensaje.innerText = usuario?.mensaje
-})
+})*/

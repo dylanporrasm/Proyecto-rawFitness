@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'); //Se llama la libreria Mongoose
 
 var usuarioSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
