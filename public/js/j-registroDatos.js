@@ -38,22 +38,4 @@ function modificarUsuario() {
 
     }
   })
-<<<<<<< HEAD
 }
-
-/*btnEnviar.addEventListener("click", async function(evento) { 
-  evento.preventDefault();
-  const usuario = await obtenerUsuario();
-  if (usuario?.nombre && usuario?.altura && usuario?.peso) {
-      return window.location.href = 'http://localhost:5000/html/h-subHome.html'
-  }
-
-  if (usuario?.correo) {
-      return window.location.href = 'http://localhost:5000/html/h-registroDatos.html'
-  }
-
-  mensaje.innerText = usuario?.mensaje
-})*/
-=======
-}
->>>>>>> d6a3417c6a1548fab41850c82d27b31363c2fba9
