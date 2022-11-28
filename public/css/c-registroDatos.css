@@ -189,7 +189,11 @@ input{
     padding: 25px 10px;
 	padding-top: 50px;
 }
-
+.mensaje{
+	color: red;
+	font-size: 20px;
+	
+}
 
 
 .partes-login label b{

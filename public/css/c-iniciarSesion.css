@@ -145,7 +145,7 @@ input{
 }
 
 .mensaje{
-	color: white;
+	color: red;
 }
 .menu-vertical li a:hover{
 	transition: all 0.70s;

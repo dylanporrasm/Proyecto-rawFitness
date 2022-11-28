@@ -29,8 +29,8 @@ function modificarUsuario() {
     correo
 
   }
-  if(!datos.nombre || !datos.apellidos || !datos.nacimiento ){
-    document.getElementById("mensaje").innerText="Todos los campos son requeridos"
+  if(!datos.nombre || !datos.apellidos || !datos.nacimiento || !datos.genero || !datos.peso|| !datos.altura|| !datos.peso ){
+    document.getElementById("mensaje").innerText="Todos lo campos son obligatorios"
     return
   }
 
