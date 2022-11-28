@@ -1,6 +1,7 @@
 
 const image_input = document.querySelector("#image-input");
 const btnEnviar=document.getElementById("btn-aceptar");
+
 btnEnviar.addEventListener("click", ()=>{
   modificarUsuario();
   return window.location.href = 'http://localhost:5000/html/h-subHome.html'
@@ -18,7 +19,7 @@ image_input.addEventListener("change", function() {
 
 function modificarUsuario() {
   const correo=JSON.parse(localStorage.getItem("usuario")).correo
-  var datos = { 
+  var datos = {
     //foto: document.getElementById("foto").value,
     nombre: document.getElementById("nombre").value,
     apellidos: document.getElementById("apellidos").value,
@@ -28,15 +29,16 @@ function modificarUsuario() {
     altura: document.getElementById("altura").value,
     correo
   }
-  
+
   fetch("http://localhost:5000/usuarios/modificar", {
     method: 'PUT',
     body: JSON.stringify(datos),
     headers: {
       'Content-Type': 'application/json',
-      
+
     }
   })
+<<<<<<< HEAD
 }
 
 /*btnEnviar.addEventListener("click", async function(evento) { 
@@ -52,3 +54,6 @@ function modificarUsuario() {
 
   mensaje.innerText = usuario?.mensaje
 })*/
+=======
+}
+>>>>>>> d6a3417c6a1548fab41850c82d27b31363c2fba9
