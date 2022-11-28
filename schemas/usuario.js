@@ -3,7 +3,7 @@ var mongoose = require('mongoose'); //Se llama la libreria Mongoose
 var usuarioSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   correo: String,
-  foto: {data: Buffer,contentType: String },
+  foto: { data: Buffer,contentType: String },
   nombre: String,
   apellidos: String,
   nacimiento: Date,
@@ -13,4 +13,4 @@ var usuarioSchema = mongoose.Schema({
   progresos: [{ peso: Number, fecha: Date }]
 });
 
-module.exports = mongoose.model('Usuario', usuarioSchema, 'Usuarios');``
+module.exports = mongoose.model('Usuario', usuarioSchema, 'Usuarios');
