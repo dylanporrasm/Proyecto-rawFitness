@@ -9,15 +9,24 @@ app.listen(5000); // Levanto el servidor en el puerto 5000*/
 
 
 //VINCULADO A BASE DE DATOS MONGO
+
+
 var express = require('express');
 var path = require('path');
 var app = express();
+const upload= require('express-fileupload')
 
 var mongoose = require('mongoose');
+
 
 mongoose.connect('mongodb+srv://DylanPorras:1234@ucenfotec.aok0faj.mongodb.net/Proyecto?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Permite el uso de JSON como parámetros del POST
+app.use(upload({
+  useTempFiles : true,
+  tempFileDir : './uploads'
+}));
+
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));

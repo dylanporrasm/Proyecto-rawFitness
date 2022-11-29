@@ -1,11 +1,15 @@
+
 var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
 
 
-var Usuario = require('../schemas/usuario.js');
 
-router.get('/', async function(req, res) {
+
+var Usuario = require('../schemas/usuario.js');
+const { uploadImage } = require('../utils/cloudinary.js');
+
+router.get('/', async function (req, res) {
     const usuarios = await Usuario.find().exec();
     return res.json(usuarios);
 });
@@ -19,7 +23,7 @@ router.get('/', async function(req, res) {
         }
       );
   });
-
+  
   router.get('/buscar-por/:correo', async (req, res) => {
     const { correo } = req.params;
     const mensajeError = `Usuario${correo ? ' con correo ' + correo : ''} no encontrado en la base de datos`
@@ -33,8 +37,12 @@ router.get('/', async function(req, res) {
     }
   })
 
-  router.post('/insertar', function(req, res) {
-    var usuarioNuevo = new  Usuario({
+
+
+  router.post('/insertar', async function (req, res) {
+
+    const usuarioNuevo = new  Usuario(
+      {
       _id: new mongoose.Types.ObjectId(),
       foto: req.body.foto,
       nombre: req.body.nombre,
@@ -45,6 +53,18 @@ router.get('/', async function(req, res) {
       altura:req.body.altura
     
     });
+
+
+    //AGREGANDO FOTO DE USUARIO
+    if(req.files?.image){
+      const resultado= await uploadImage(req.files.image.tempFilePath)
+      usuarioNuevo.imagen={
+        public_id: resultado.public_id,
+        secure_url: resultado.secure_url
+      }
+
+    }
+    
   
     usuarioNuevo.save()
       .then(
@@ -64,5 +84,5 @@ router.get('/', async function(req, res) {
     )
     return res.json(usuarioActual);
   })
-
+  
   module.exports = router;
