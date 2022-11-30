@@ -1,17 +1,4 @@
-
- 
-  function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-  
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-  
-    return [year, month, day].join('-');
-}
-
+import { formatDate } from "./utilidades.js";
 
 //GRAFICA DE PESOS
 document.querySelector(".agregar-peso").addEventListener("click",agregarParametro);
@@ -29,7 +16,7 @@ function obtenerUsuarioDelLocalStorage(){
 
 async function obtenerUsuario(){
   const usuarioActual = obtenerUsuarioDelLocalStorage();
-  const resultado = await fetch(`http://localhost:5000/usuarios/buscar-por/${usuarioActual.correo}`);
+  const resultado = await fetch(`http://localhost:3000/usuarios/buscar-por/${usuarioActual.correo}`);
   const usuario = await resultado.json();
   return usuario;
 }
@@ -51,7 +38,7 @@ async function modificarProgreso(){
     })
 
     if (nuevosProgresos?.length) {
-      const resultado = await fetch("http://localhost:5000/usuarios/modificar", {
+      const resultado = await fetch("http://localhost:3000/usuarios/modificar", {
         method: 'PUT',
         body: JSON.stringify({
           ...usuarioActual,
@@ -72,7 +59,7 @@ function generarParametros(progresos){
 
   if (progresos?.length) {
     progresos.forEach(({ peso, fecha }) => {
-      const nuevoHTML = `<div><input type="date" class="fecha" placeholder="Ingrese una fecha" value="${formatDate(fecha)}"><input type="number" class="peso" placeholder="Peso/Kg" value="${peso}"></div>`; 
+      const nuevoHTML = `<div><input type="date" class="fecha" placeholder="Ingrese una fecha" value="${formatDate(fecha)}"><input type="number" class="peso" placeholder="Peso/Kg" value="${peso}"></div>`;
       contenedor.insertAdjacentHTML('beforeend', nuevoHTML);
     })
     agregarParametro();
@@ -85,7 +72,7 @@ function generarParametros(progresos){
 
 function agregarParametro(){
     let contenedor = document.querySelector(".contenedor");
-    let nuevoHTML = '<div><input id="fecha-nueva" type="date" class="fecha" placeholder="Ingrese una fecha"><input id="peso-nuevo" type="number" class="peso" placeholder="Peso/Kg"></div>'; 
+    let nuevoHTML = '<div><input id="fecha-nueva" type="date" class="fecha" placeholder="Ingrese una fecha"><input id="peso-nuevo" type="number" class="peso" placeholder="Peso/Kg"></div>';
     contenedor.insertAdjacentHTML('beforeend', nuevoHTML);
 }
 
@@ -99,10 +86,10 @@ function mostrarResultados(progresos) {
       borderColor:"black",
       type: "linear"
     }];
-    
+
     Plotly.newPlot("grafico",data);
 
-    
+
 }
 
 
@@ -120,7 +107,7 @@ var chart = new Chart(grafica,{
         backgroundColor:"#09CaDE",
         borderColor:"yellow",
         data:[90,82,78,100]
-        
+
       }
     ]
 

@@ -11,13 +11,11 @@ app.listen(5000); // Levanto el servidor en el puerto 5000*/
 //VINCULADO A BASE DE DATOS MONGO
 
 
-var express = require('express');
-var path = require('path');
-var app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
 const upload= require('express-fileupload')
-
-var mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://DylanPorras:1234@ucenfotec.aok0faj.mongodb.net/Proyecto?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -33,6 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/usuarios', require('./api/usuarios.js'));
 
-app.listen(5000, function() {
-  console.log('Servidor corriendo en puerto 5000...')
+app.listen(3000, function() {
+  console.log('Servidor corriendo en puerto 3000...')
 });

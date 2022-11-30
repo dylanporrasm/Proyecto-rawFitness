@@ -1,13 +1,12 @@
 
-const image_input = document.querySelector("#image-input");
+const imageInput = document.querySelector("#image-input");
 const btnEnviar=document.getElementById("btn-aceptar");
 
-btnEnviar.addEventListener("click", ()=>{
+btnEnviar.addEventListener("click", () => {
   modificarUsuario();
-  
 })
 
-image_input.addEventListener("change", function() {
+imageInput.addEventListener("change", function() {
   const reader = new FileReader();
   reader.addEventListener("load", () => {
     const uploaded_image = reader.result;
@@ -17,35 +16,33 @@ image_input.addEventListener("change", function() {
 });
 
 function modificarUsuario() {
-  const correo=JSON.parse(localStorage.getItem("usuario")).correo
-  var datos = {
-    //foto: document.getElementById("foto").value,
+  const correo = JSON.parse(localStorage.getItem("usuario")).correo
+
+  const datos = {
     nombre: document.getElementById("nombre").value,
     apellidos: document.getElementById("apellidos").value,
     nacimiento: document.getElementById("nacimiento").value,
     genero: document.getElementById("genero").value,
     peso: document.getElementById("peso").value,
     altura: document.getElementById("altura").value,
+    foto_usuario: imageInput?.files[0],
     correo
-
   }
-  if(!datos.nombre || !datos.apellidos || !datos.nacimiento || !datos.genero || !datos.peso|| !datos.altura|| !datos.peso ){
-    document.getElementById("mensaje").innerText="Todos lo campos son obligatorios"
+
+  if(!datos.nombre || !datos.apellidos || !datos.nacimiento || !datos.genero || !datos.peso|| !datos.altura) {
+    document.getElementById("mensaje").innerText= "Todos lo campos son obligatorios"
     return
   }
 
-  fetch("http://localhost:5000/usuarios/modificar", {
-    method: 'PUT',
-    body: JSON.stringify(datos),
-    headers: {
-      'Content-Type': 'application/json',
-
-    }
-
+  const body = new FormData();
+  Object.keys(datos).forEach(key => {
+    if (datos[key]) body.append(key, datos[key]);
   })
-  return window.location.href = 'http://localhost:5000/html/h-subHome.html'
+
+  fetch("http://localhost:3000/usuarios/modificar", {
+    method: 'PUT',
+    body
+  })
+
+  return window.location.href = 'http://localhost:3000/html/h-subHome.html'
 }
-
-
-  
-
