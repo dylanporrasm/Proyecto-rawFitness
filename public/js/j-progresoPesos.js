@@ -32,7 +32,7 @@ async function modificarProgreso(){
       const inputPeso = pesosNuevos[indice]
       const nuevoProgreso = {
         fecha: fechaInput?.value,
-        peso: inputPeso?.value
+        peso: parseFloat(inputPeso?.value)
       }
       nuevoProgreso.fecha && nuevoProgreso.peso && nuevosProgresos.push(nuevoProgreso)
     })

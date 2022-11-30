@@ -34,7 +34,6 @@ router.get('/buscar-por/:correo', async (req, res) => {
 
 router.put("/modificar", async (req, res) => {
   const usuario = req.body
-
   try {
     if(req.files?.foto_usuario) {
       const resultado = await uploadImage(req.files.foto_usuario.tempFilePath);
