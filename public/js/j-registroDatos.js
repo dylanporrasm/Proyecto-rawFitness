@@ -31,7 +31,13 @@ imageInput.addEventListener("change", function() {
   }
 
   if(!datos.nombre || !datos.apellidos || !datos.nacimiento || !datos.genero || !datos.peso|| !datos.altura ) {
-    document.getElementById("mensaje").innerText= "Todos lo campos son obligatorios"
+    document.getElementById("mensaje").innerText= "*Todos lo campos son obligatorios*"
+    nombre.style.borderColor="red"
+    apellidos.style.borderColor="red"
+    nacimiento.style.borderColor="red"
+    genero.style.borderColor="red"
+    peso.style.borderColor="red"
+    altura.style.borderColor="red"
     return
   }
 

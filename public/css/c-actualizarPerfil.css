@@ -2,6 +2,23 @@ div{
 	box-sizing: border-box;
 }
 
+.capa-display{
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+#display-image{
+	width:100%;
+	height: 200px;
+	border: 1px solid black;
+	background-position: center;
+	background-size: cover;
+  }
+
+.mensaje{
+	color: black;
+}
+
 body{
 	margin: 0;
 	padding: 0;
@@ -128,6 +145,20 @@ nav{
 .banner-1 p{
 	margin-top: 0px;
 }
+
+.capa-display{
+	padding-left: 200px;
+	padding-right: 200px;
+	padding-top: 20px;
+}
+
+#display-image{
+	width:100%;
+	height: 200px;
+	border: 1px solid black;
+	background-position: center;
+	background-size: cover;
+  }
 .boton-guardar, .boton-cancelar {
 	background-color: white;
 	border-radius: 30px;
@@ -160,11 +191,20 @@ footer{
 	text-align: center;
 	color: #000000;
 }
-.seccion input{
+.seccion input[type=text],[type=date],[type=number],[type=submit], [type=reset] {
 	width: 40%;
 	border-radius: 30px;
 	padding: 10px 10px;
 	text-align: center;
+	border: 1px solid black;
+}
+#genero{
+	width: 40%;
+	border-radius: 30px;
+	padding: 10px 10px;
+	text-align: center;
+	border: 1px solid black;
+
 }
 .seccion select{
 	width: 15%;
@@ -172,10 +212,7 @@ footer{
 	padding: 10px 10px;
 	text-align: center;
 }
-.imagen-usuario{
-	width: 25%;
-	height: 25%;
-}
+
 .titulo-contacto {
     text-align: center;
     border-radius: 10px;
@@ -210,7 +247,6 @@ footer{
 @media screen and (max-width: 767px){
 	nav{
 		width: 100%;
-		position: relative;
 	}
 
 	.nav-logo{
@@ -239,17 +275,36 @@ footer{
 		width: 20%;
 		
 	}
-
 	.menu-horizontal li:hover .menu-vertical{
 		margin-top: 5px;
 	}
-	.banner-1{
-		padding-top: 50px;
-	}
-	.banner-1 p{
-		margin-top: 0px;
+	
+	.seccion{
+		width: 50%;
 	}
 
+	.seccion{
+		width: 100%;
+	}
+	.capa-display{
+		padding-top:20px;
+		padding-right: 80px;
+		padding-left: 80px;
+	}
+
+	#display-image{
+		width: 100%;
+	}
+
+	.seccion input[type=text],[type=date],[type=number],[type=submit], [type=reset] {
+		width: 90%;
+	}
+
+	#genero{
+		width: 90%;
+	}
+
+	
 	.footer{
 		width: 100%;
 	}

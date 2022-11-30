@@ -23,7 +23,6 @@ btnEnviar.addEventListener("click", async function(evento) {
 
         if (usuario?.mensaje) {
             mensaje.innerText = usuario.mensaje;
-
         }
     } else {
         mensaje.innerText = "Error al iniciar sesion";

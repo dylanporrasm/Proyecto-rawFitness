@@ -21,8 +21,7 @@ mongoose.connect('mongodb+srv://DylanPorras:1234@ucenfotec.aok0faj.mongodb.net/P
 
 // Permite el uso de JSON como parámetros del POST
 app.use(upload({
-  useTempFiles : true,
-  tempFileDir : './uploads'
+  useTempFiles : true
 }));
 
 app.use(express.json());

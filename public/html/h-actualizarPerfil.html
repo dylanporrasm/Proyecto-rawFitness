@@ -67,31 +67,9 @@
 
     <!--CONTENIDO DE CADA UNO POR HACER RECETAS-EJERCICIOS-AYUNOS-PROGRESO-->
     <form class="banner-1">
+        
         <div class="wrapper">
-            <div class="seccion">
-                <div class="info">
-                    <h4>Ingrese su foto</h4>
-                    <input type="file" accept="image/png,image/jpeg" onchange="cargaImagen()">
-                    <br>
-                    <img id="imagen" class="imagen-usuario">
-                </div>
-                <div class="info">
-                    <h4>Genero</h4>
-                    <select id="genero">
-                        <option>Genero</option>
-                        <option>Hombre</option>
-                        <option>Mujer</option>
-                    </select>
-                </div>
-                <div class="wrapper">
-                    <div class="seccion">
-                        <input type="submit" id="enviar" class="boton-guardar" required>
-                    </div>
-                    <div class="seccion">
-                        <input type="reset" class="boton-cancelar" required>
-                    </div>
-                </div>
-            </div>
+            
             <div class="seccion">
                 <div class="info">
                     <h4>Nombre</h4>
@@ -112,6 +90,34 @@
                 <div class="info">
                     <h4>Peso</h4>
                     <input type="number" id="peso" placeholder="xx kg">
+                </div>
+            </div>
+
+            <div class="seccion">
+                <div class="info">
+                    <p class="mensaje" id="mensaje"></p>
+                    <h4>Ingrese su foto</h4>
+                    <input type="file" id="image-input" accept="image/jpeg, image/png, image/jpg">
+
+                    <div class="capa-display" >
+                        <div id="display-image"></div>
+                    </div>
+                </div>
+                <div class="info">
+                    <h4>Genero</h4>
+                    <select id="genero">
+                        <option>Genero</option>
+                        <option>Hombre</option>
+                        <option>Mujer</option>
+                    </select>
+                </div>
+                <div class="wrapper">
+                    <div class="seccion">
+                        <input type="submit" id="enviar" class="boton-guardar" value="Actualizar" required>
+                    </div>
+                    <div class="seccion">
+                        <input type="reset" class="boton-cancelar" required>
+                    </div>
                 </div>
             </div>
         </div>
