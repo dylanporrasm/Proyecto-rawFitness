@@ -18,7 +18,7 @@ imageInput.addEventListener("change", function() {
 
  async function modificarUsuario() {
   
-  const correo = JSON.parse(localStorage.getItem("usuario")).correo
+  const correo = JSON.parse(localStorage.getItem("usuario")).correo//se obtiene el usuario por medio del almacenamiento local
   const datos = {
     nombre: document.getElementById("nombre").value,
     apellidos: document.getElementById("apellidos").value,
@@ -27,9 +27,10 @@ imageInput.addEventListener("change", function() {
     peso: document.getElementById("peso").value,
     altura: document.getElementById("altura").value,
     foto_usuario: imageInput?.files[0],
-    correo
+    correo //los datos se guardan en el local, ligado al correo
   }
 
+  //Validacion de ingreso de datos, que todos los campos esten llenos
   if(!datos.nombre || !datos.apellidos || !datos.nacimiento || !datos.genero || !datos.peso|| !datos.altura ) {
     document.getElementById("mensaje").innerText= "*Todos lo campos son obligatorios*"
     nombre.style.borderColor="red"
@@ -43,15 +44,15 @@ imageInput.addEventListener("change", function() {
 
   const body = new FormData();
   Object.keys(datos).forEach(key => {
-    if (datos[key]) body.append(key, datos[key]);
+    if (datos[key]) body.append(key, datos[key]); //Agrega los datos en el mongo
   })
 
   const resultado= await fetch("http://localhost:3000/usuarios/modificar", {
-    method: 'PUT',
+    method: 'PUT', 
     body
   })
   const usuario= await resultado.json()
-  localStorage.setItem("usuario", JSON.stringify(usuario))
+  localStorage.setItem("usuario", JSON.stringify(usuario)) //se envian los datos del usuario al almacenamiento local(localStorage)
   console.log(usuario)
 
   return window.location.href = 'http://localhost:3000/html/h-subHome.html'

@@ -1,8 +1,20 @@
 import { formatDate } from "./utilidades.js";
 
 
-function generarInformacion(){
-    const usuario=JSON.parse(localStorage.getItem("usuario"));
+
+async function obtenerUsuario(){
+    const usuarioActual = obtenerUsuarioDelLocalStorage();
+    const resultado = await fetch(`http://localhost:3000/usuarios/buscar-por/${usuarioActual.correo}`);
+    const usuario = await resultado.json();
+    return usuario;
+  }
+
+  function obtenerUsuarioDelLocalStorage(){
+    const usuario=JSON.parse(localStorage.getItem("usuario"))
+    return usuario;
+  }
+
+  function generarInformacion(usuario){
     Object.keys(usuario).forEach(key =>{
         
         const input= document.getElementById(key);
@@ -23,4 +35,9 @@ function generarInformacion(){
     })
 }
 
-generarInformacion()
+const cargarDatos = async () => {
+    const usuario = await obtenerUsuario();
+    generarInformacion(usuario)
+  };
+  
+  cargarDatos();

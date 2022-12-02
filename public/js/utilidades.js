@@ -1,3 +1,5 @@
+
+//CAMBIO FORMATO DE FECHA 
 export function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -9,3 +11,5 @@ export function formatDate(date) {
 
     return [year, month, day].join('-');
 }
+
+

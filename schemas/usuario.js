@@ -10,7 +10,14 @@ var usuarioSchema = mongoose.Schema({
   genero: String,
   peso: Number,
   altura: Number,
-  progresos: [{ peso: Number, fecha: Date }]
+  progresos: [{ peso: Number, fecha: Date }],
+  logros: [
+    {
+     logro:  {type: mongoose.Schema.Types.ObjectId,ref: 'Logro'},
+     realizado: Boolean
+    }
+    ]
+
 });
 
 module.exports = mongoose.model('Usuario', usuarioSchema, 'Usuarios');

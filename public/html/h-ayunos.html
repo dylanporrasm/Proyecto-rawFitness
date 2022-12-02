@@ -12,6 +12,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <script src="../js/j-cerrarSesion.js" defer></script>
+        <script src="../js/main.js" defer></script>
     </head>
 
     <body>
@@ -71,12 +73,13 @@
             <div class="registros-ayunos">
                 <div class="registro">
                     <h1>Registrar el ayuno</h1>
+                    <p id="mensaje"></p>
                 </div>
                 <form>
                     <div class="wrapper">
                         <div class="inputs-ayunos">
                                 <p>Tipo de ayuno </p>
-                            <select>
+                            <select id="tipo">
                                 <option>Seleccionar</option>
                                 <option>14 horas</option>
                                 <option>16 horas</option>
@@ -86,19 +89,19 @@
                         </div>
                         <div class="fechas">
                             <p>Día que realizara</p>
-                            <input type="date">
+                            <input type="date" id="fecha">
                         </div>
                         <div class="inputs-hora">  
                                 <p>Hora Inicio</p>
-                            <input type="time">
+                                <input type="time" id="inicio">
                         </div>
                        
                         <div class="hora-2">
                                 <p>Hora Fin</p>
-                            <input type="time">
+                                <input type="time" id="fin">
                         </div>
                         <div class="boton-registro">
-                            <button>Registrar Ayuno</button>
+                            <button id="registrar">Registrar Ayuno</button>
                         </div>
                     </div>
                 </form>
@@ -146,5 +149,6 @@
             </div>
 
         </footer> 
+        <script src="../js/j-ayunos.js"></script>
     </body>
 </html>

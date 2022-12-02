@@ -100,14 +100,12 @@ let grafica=document.getElementById("grafica-metas").getContext("2d");
 var chart = new Chart(grafica,{
   type:"bar",
   data:{
-    labels:["meta-1","meta-2","meta-3"],
+    labels:["meta-1","meta-2","meta-3","meta-4"],
     datasets:[
       {
         label:"grafica de metas",
         backgroundColor:"#09CaDE",
-        borderColor:"yellow",
         data:[90,82,78,100]
-
       }
     ]
 

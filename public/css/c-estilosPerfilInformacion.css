@@ -145,7 +145,8 @@ nav{
 
 .foto img{
     width: 270px;
-    height: 200px;
+    height: 260px;
+	border-radius: 30px;
 }
 
 

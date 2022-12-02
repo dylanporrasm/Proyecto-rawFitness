@@ -1,13 +1,5 @@
 
 
-    var listado = document.getElementById("imagenes-json");
-
-    for(var i=0; i < informacion.length; i++) 
-    {
-    var elemento="<div class='capa-informacion'><img src='"+informacion[i].imagen+"' class='imagen-informacion'><p>"+informacion[i].funcion+"</p><hr></div>";
-
-    listado.insertAdjacentHTML("beforeEnd",elemento);
-    }
 
 
     //CALCULADORA IMC

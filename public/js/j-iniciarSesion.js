@@ -13,8 +13,8 @@ btnEnviar.addEventListener("click", async function(evento) {
     const usuario = await obtenerUsuario();
     if (usuario) {
         if (usuario?.correo) {
-            localStorage.setItem("usuario", JSON.stringify(usuario));
-            if (usuario?.nombre && usuario?.altura && usuario?.peso) {
+            localStorage.setItem("usuario", JSON.stringify(usuario));//Se envia al usuario en el almacenamiento local
+            if (usuario?.nombre && usuario?.apellidos && usuario?.altura && usuario?.peso ) { 
                 return window.location.href = 'http://localhost:3000/html/h-subHome.html'
             } else {
                 return window.location.href = 'http://localhost:3000/html/h-registroDatos.html'
@@ -22,7 +22,7 @@ btnEnviar.addEventListener("click", async function(evento) {
         }
 
         if (usuario?.mensaje) {
-            mensaje.innerText = usuario.mensaje;
+            mensaje.innerText = usuario.mensaje;//mensaje de usuario no encontrado en inicio de sesion
         }
     } else {
         mensaje.innerText = "Error al iniciar sesion";

@@ -2,15 +2,20 @@
 const express = require('express');
 const router = express.Router();
 const Usuario = require('../schemas/usuario.js');
+const Logro = require('../schemas/logro.js');
+
 const uploadImage = require('../utils/cloudinary.js');
 
 router.get('/', async function (req, res) {
-    const usuarios = await Usuario.find().exec();
+    const usuarios =  await Usuario.find().exec();
+    usuarios.forEach(u =>{ 
+      Usuario.findByIdAndUpdate()
+    })
     return res.json(usuarios);
 });
 
 router.post('/buscar', function(req, res) {
-  var idUsuario = req.body.idUsuario;
+  var idUsuario = req.body.idUsuario;//
   Usuario.findById(idUsuario).exec()
     .then(
       function(result) {
