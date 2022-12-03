@@ -6,7 +6,8 @@ const mensaje=document.getElementById("mensaje");
 
 btnEnviar.addEventListener("click", async function(evento) {
     evento.preventDefault();
-    const usuario = await obtenerUsuario();
+    const correo = document.getElementById("correo").value;
+    const usuario = await obtenerUsuario(correo);
     if (usuario) {
         if (usuario?.correo) {
             localStorage.setItem("usuario", JSON.stringify(usuario));//Se envia al usuario en el almacenamiento local

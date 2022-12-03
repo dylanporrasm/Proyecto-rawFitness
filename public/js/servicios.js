@@ -12,9 +12,15 @@ export function borrarUsuarioDelLocalStorage() {
   return localStorage.removeItem("usuario");
 }
 
-export async function obtenerUsuario() {
-  const usuarioActual = obtenerUsuarioDelLocalStorage();
-  const usuario = await (await fetch(`${URL_BASE}/usuarios/buscar-por/${usuarioActual?.correo}`)).json();
+export async function obtenerUsuario(correo) {
+  let url = `${URL_BASE}/usuarios/buscar-por/`
+  if (correo) {
+    url = url + correo;
+  } else {
+    const usuarioActual = obtenerUsuarioDelLocalStorage();
+    url = url + usuarioActual?.correo;
+  }
+  const usuario = await (await fetch(url)).json();
   return usuario;
 }
 
