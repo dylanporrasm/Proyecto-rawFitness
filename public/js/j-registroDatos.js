@@ -1,3 +1,5 @@
+import { actualizarUsuario, editarUsuarioEnLocalStorage } from "./servicios.js";
+import { redireccionar } from "./utilidades.js";
 
 const imageInput = document.querySelector("#image-input");
 const btnEnviar=document.getElementById("btn-aceptar");
@@ -16,8 +18,7 @@ imageInput.addEventListener("change", function() {
   reader.readAsDataURL(this.files[0]);
 });
 
- async function modificarUsuario() {
-  
+async function modificarUsuario() {
   const correo = JSON.parse(localStorage.getItem("usuario")).correo//se obtiene el usuario por medio del almacenamiento local
   const datos = {
     nombre: document.getElementById("nombre").value,
@@ -47,13 +48,7 @@ imageInput.addEventListener("change", function() {
     if (datos[key]) body.append(key, datos[key]); //Agrega los datos en el mongo
   })
 
-  const resultado= await fetch("http://localhost:3000/usuarios/modificar", {
-    method: 'PUT', 
-    body
-  })
-  const usuario= await resultado.json()
-  localStorage.setItem("usuario", JSON.stringify(usuario)) //se envian los datos del usuario al almacenamiento local(localStorage)
-  console.log(usuario)
-
-  return window.location.href = 'http://localhost:3000/html/h-subHome.html'
+  const usuario= await actualizarUsuario(body)
+  editarUsuarioEnLocalStorage(usuario) //se envian los datos del usuario al almacenamiento local(localStorage)
+  return redireccionar('h-subHome.html');
 }

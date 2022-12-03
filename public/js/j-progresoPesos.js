@@ -1,4 +1,5 @@
 import { formatDate } from "./utilidades.js";
+import { actualizarUsuario, obtenerUsuario, obtenerUsuarioDelLocalStorage, editarUsuarioEnLocalStorage } from "./servicios.js";
 
 //GRAFICA DE PESOS
 document.querySelector(".agregar-peso").addEventListener("click",agregarParametro);
@@ -8,18 +9,6 @@ document.querySelector(".mostrar-resultados").addEventListener("click", async ()
   agregarParametro();
   mostrarResultados(usuario.progresos);
 });
-
-function obtenerUsuarioDelLocalStorage(){
-  const usuario=JSON.parse(localStorage.getItem("usuario"))
-  return usuario;
-}
-
-async function obtenerUsuario(){
-  const usuarioActual = obtenerUsuarioDelLocalStorage();
-  const resultado = await fetch(`http://localhost:3000/usuarios/buscar-por/${usuarioActual.correo}`);
-  const usuario = await resultado.json();
-  return usuario;
-}
 
 async function modificarProgreso(){
   const usuarioActual = obtenerUsuarioDelLocalStorage();
@@ -38,17 +27,14 @@ async function modificarProgreso(){
     })
 
     if (nuevosProgresos?.length) {
-      const resultado = await fetch("http://localhost:3000/usuarios/modificar", {
-        method: 'PUT',
-        body: JSON.stringify({
-          ...usuarioActual,
-          progresos: [...progresosActuales, ...nuevosProgresos],
-          peso:nuevosProgresos[nuevosProgresos.length-1].peso
-        }),
-        headers: {'Content-Type': 'application/json'}
-      });
-      const usuario = await resultado.json();
-      localStorage.setItem("usuario", JSON.stringify(usuario));
+      const datos = {
+        ...usuarioActual,
+        progresos: [...progresosActuales, ...nuevosProgresos],
+        peso: nuevosProgresos[nuevosProgresos.length-1].peso
+      }
+      const headers = { 'Content-Type': 'application/json' }
+      const usuario = await actualizarUsuario(JSON.stringify(datos), headers);
+      editarUsuarioEnLocalStorage(usuario);
     }
   }
 }

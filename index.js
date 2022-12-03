@@ -29,6 +29,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/usuarios', require('./api/usuarios.js'));
+app.use('/logros', require('./api/logros.js'));
 
 app.listen(3000, function() {
   console.log('Servidor corriendo en puerto 3000...')

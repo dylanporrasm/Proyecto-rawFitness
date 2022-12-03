@@ -1,3 +1,5 @@
+import { obtenerUsuarioDelLocalStorage } from "./servicios.js";
+import { redireccionar } from "./utilidades.js";
 
 window.onload = () => {
     const rutasProtegidas = [
@@ -12,14 +14,14 @@ window.onload = () => {
     ]
 
     const urlPathName = window.location.pathname.toLocaleLowerCase();
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuario = obtenerUsuarioDelLocalStorage();
     const esRutaProtegida = rutasProtegidas.some(ruta => urlPathName.includes(ruta));
 
     if(esRutaProtegida && !usuario) {
-        return window.location.href = 'http://localhost:3000/html/h-iniciarSesion.html';
+        return redireccionar('h-iniciarSesion.html');
     }
 
     if (!esRutaProtegida && usuario?.nombre && usuario?.altura && usuario?.peso) {
-        return window.location.href = 'http://localhost:3000/html/h-subHome.html';
+        return redireccionar('h-subHome.html');
     }
 }

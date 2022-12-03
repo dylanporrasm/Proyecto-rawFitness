@@ -13,11 +13,14 @@ var usuarioSchema = mongoose.Schema({
   progresos: [{ peso: Number, fecha: Date }],
   logros: [
     {
-     logro:  {type: mongoose.Schema.Types.ObjectId,ref: 'Logro'},
-     realizado: Boolean
+      logro: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Logro',
+      },
+      pesoObjetivo: Number,
+      realizado: Boolean
     }
-    ]
-
+  ]
 });
 
 module.exports = mongoose.model('Usuario', usuarioSchema, 'Usuarios');

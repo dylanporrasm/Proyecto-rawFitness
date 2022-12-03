@@ -8,9 +8,6 @@ const uploadImage = require('../utils/cloudinary.js');
 
 router.get('/', async function (req, res) {
     const usuarios =  await Usuario.find().exec();
-    usuarios.forEach(u =>{ 
-      Usuario.findByIdAndUpdate()
-    })
     return res.json(usuarios);
 });
 
@@ -28,8 +25,25 @@ router.get('/buscar-por/:correo', async (req, res) => {
   const { correo } = req.params;
   const mensajeError = `Usuario${correo ? ' con correo ' + correo : ''} no encontrado en la base de datos`
   try {
-    const usuario = await Usuario.findOne({ correo }).exec();
-    if (!usuario) return res.json({ mensaje: mensajeError })
+    const usuario = await Usuario.findOne({ correo });
+    if (!usuario) return res.json({ mensaje: mensajeError });
+    const logros = []
+    for (const logroUsuario of usuario.logros) {
+      const { logro: idLogro, realizado } = logroUsuario;
+      if (idLogro) {
+        const logro = await Logro.findById(idLogro);
+        logros.push({
+          logro,
+          realizado
+        });
+      }
+    }
+    usuario.logros = logros;
+    // const logros = await Logro.find().exec();
+    // for (const logro of logros) {
+    //   usuario.logros.push({ logro, realizado: false })
+    //   await usuario.save();
+    // }
     return res.json(usuario);
   } catch (error) {
     console.error(error);
