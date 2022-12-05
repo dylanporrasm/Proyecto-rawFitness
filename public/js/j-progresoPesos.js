@@ -11,8 +11,8 @@ document.querySelector(".mostrar-resultados").addEventListener("click", async ()
 });
 
 async function modificarProgreso(){
-  const usuarioActual = obtenerUsuarioDelLocalStorage();
-  const progresosActuales = usuarioActual.progresos;
+  const usuarioActual = await obtenerUsuario();
+  const progresosActuales = usuarioActual?.progresos || [];
   const fechasNuevas = document.querySelectorAll('#fecha-nueva');
   const pesosNuevos = document.querySelectorAll('#peso-nuevo');
   if (fechasNuevas?.length && pesosNuevos?.length) {
@@ -30,7 +30,6 @@ async function modificarProgreso(){
       const datos = {
         ...usuarioActual,
         progresos: [...progresosActuales, ...nuevosProgresos],
-        peso: nuevosProgresos[nuevosProgresos.length-1].peso
       }
       const headers = { 'Content-Type': 'application/json' }
       const usuario = await actualizarUsuario(JSON.stringify(datos), headers);
@@ -63,8 +62,8 @@ function agregarParametro(){
 }
 
 function mostrarResultados(progresos) {
-    const pesos = progresos.map(({ peso }) => peso);
-    const fechas = progresos.map(({ fecha }) => formatDate(fecha));
+    const pesos = progresos?.map(({ peso }) => peso);
+    const fechas = progresos?.map(({ fecha }) => formatDate(fecha));
     var data = [{
       x: fechas,
       y: pesos,

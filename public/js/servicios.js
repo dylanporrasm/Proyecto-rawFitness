@@ -34,6 +34,11 @@ export async function actualizarUsuario(body, headers) {
 }
 
 export async function obtenerLogros() {
-  const logros = await (await fetch(`${URL_BASE}/logros`)).json();;
+  const logros = await (await fetch(`${URL_BASE}/logros`)).json();
   return logros;
+}
+
+export async function obtenerLogro(nombreLogro) {
+  const logro = await (await fetch(`${URL_BASE}/logros/${nombreLogro}`)).json();
+  return logro;
 }
