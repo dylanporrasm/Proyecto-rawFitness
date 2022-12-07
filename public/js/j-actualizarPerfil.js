@@ -1,11 +1,23 @@
 import { generarInformacion } from "./utilidades.js";
-import { obtenerUsuarioDelLocalStorage, obtenerUsuario, actualizarUsuario } from "./servicios.js";
+import { obtenerUsuarioDelLocalStorage, obtenerUsuario, actualizarUsuario, editarUsuarioEnLocalStorage } from "./servicios.js";
 const imageInput = document.querySelector("#image-input");
 const btnEnviar=document.getElementById("enviar");
 
 btnEnviar.addEventListener("click", async(evento) => {
   evento.preventDefault();
-  await modificarUsuario();
+  const usuario = obtenerUsuarioDelLocalStorage();
+  const usuarioActualizado = await modificarUsuario();
+
+  usuario?.logros?.forEach(logro => {
+    const indiceLogro = usuario?.logros?.indexOf(logro);
+    const logroUsuarioActualizado = usuarioActualizado?.logros[indiceLogro];
+    if (!logro?.realizado && logroUsuarioActualizado?.realizado) {
+      alertaLogroObtenido({
+        nombre: logroUsuarioActualizado.logro.nombre,
+        pesoObjetivo: logroUsuarioActualizado.pesoObjetivo
+      });
+    }
+  });
 })
 
 imageInput.addEventListener("change", function() {
@@ -41,7 +53,9 @@ async function modificarUsuario() {
     })
 
     const usuario = await actualizarUsuario(body);
-    generarInformacion(usuario)
+    editarUsuarioEnLocalStorage(usuario);
+    generarInformacion(usuario);
+    return usuario;
 }
 
 const cargarDatos = async () => {

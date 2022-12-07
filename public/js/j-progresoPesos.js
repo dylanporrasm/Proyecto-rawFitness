@@ -3,12 +3,22 @@ import { actualizarUsuario, obtenerUsuario, obtenerUsuarioDelLocalStorage, edita
 
 //GRAFICA DE PESOS
 document.querySelector(".agregar-peso").addEventListener("click",agregarParametro);
-document.querySelector(".mostrar-resultados").addEventListener("click", async () => {
-  await modificarProgreso();
+document.querySelector(".mostrar-resultados").addEventListener("click", async (evento) => {
+  evento.preventDefault();
   const usuario = obtenerUsuarioDelLocalStorage();
+  const usuarioActualizado = await modificarProgreso();
   agregarParametro();
   mostrarResultados(usuario.progresos);
-  alertaLogroObtenido();
+  usuario?.logros?.forEach(logro => {
+    const indiceLogro = usuario?.logros?.indexOf(logro);
+    const logroUsuarioActualizado = usuarioActualizado?.logros[indiceLogro];
+    if (!logro?.realizado && logroUsuarioActualizado?.realizado) {
+      alertaLogroObtenido({
+        nombre: logroUsuarioActualizado.logro.nombre,
+        pesoObjetivo: logroUsuarioActualizado.pesoObjetivo
+      });
+    }
+  });
 });
 
 async function modificarProgreso(){
@@ -35,6 +45,7 @@ async function modificarProgreso(){
       const headers = { 'Content-Type': 'application/json' }
       const usuario = await actualizarUsuario(JSON.stringify(datos), headers);
       editarUsuarioEnLocalStorage(usuario);
+      return usuario;
     }
   }
 }
@@ -74,7 +85,7 @@ function mostrarResultados(progresos) {
     }];
 
     Plotly.newPlot("grafico",data);
-   
+
 
 }
 
@@ -104,6 +115,7 @@ const cargarDatos = async () => {
   const usuario = await obtenerUsuario();
   generarParametros(usuario.progresos);
   mostrarResultados(usuario.progresos);
+  // alertaLogroObtenido({ nombre: 'bajar peso', pesoObjetivo: 100 });
 };
 
 cargarDatos();
