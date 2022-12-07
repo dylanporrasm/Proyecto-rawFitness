@@ -1,4 +1,4 @@
-import { formatDate } from "./utilidades.js";
+import { formatDate, alertaLogroObtenido} from "./utilidades.js";
 import { actualizarUsuario, obtenerUsuario, obtenerUsuarioDelLocalStorage, editarUsuarioEnLocalStorage } from "./servicios.js";
 
 //GRAFICA DE PESOS
@@ -8,6 +8,7 @@ document.querySelector(".mostrar-resultados").addEventListener("click", async ()
   const usuario = obtenerUsuarioDelLocalStorage();
   agregarParametro();
   mostrarResultados(usuario.progresos);
+  alertaLogroObtenido();
 });
 
 async function modificarProgreso(){
@@ -73,7 +74,7 @@ function mostrarResultados(progresos) {
     }];
 
     Plotly.newPlot("grafico",data);
-
+   
 
 }
 
