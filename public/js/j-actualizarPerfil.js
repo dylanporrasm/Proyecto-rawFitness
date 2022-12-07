@@ -3,8 +3,9 @@ import { obtenerUsuarioDelLocalStorage, obtenerUsuario, actualizarUsuario } from
 const imageInput = document.querySelector("#image-input");
 const btnEnviar=document.getElementById("enviar");
 
-btnEnviar.addEventListener("click", async() => {
- await modificarUsuario();
+btnEnviar.addEventListener("click", async(evento) => {
+  evento.preventDefault();
+  await modificarUsuario();
 })
 
 imageInput.addEventListener("change", function() {
