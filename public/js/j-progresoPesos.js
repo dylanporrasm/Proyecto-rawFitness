@@ -9,14 +9,15 @@ document.querySelector(".mostrar-resultados").addEventListener("click", async (e
   const usuarioActualizado = await modificarProgreso();
   agregarParametro();
   mostrarResultados(usuario.progresos);
+  console.log(usuario.logros)
+  console.log(usuarioActualizado.logros)
   if (usuarioActualizado?.logros?.length) {
     usuarioActualizado.logros.forEach(logro => {
-      const indiceLogro = usuario?.logros?.indexOf(logro);
-      const logroUsuario = usuario?.logros[indiceLogro] ? usuario.logros[indiceLogro] : null;
-      if ((!logroUsuario || !logroUsuario?.realizado) && logroUsuarioActualizado?.realizado) {
+      const logroUsuario = usuario?.logros?.find(({ logro: { nombre } }) => nombre?.toLowerCase().trim() === logro.logro.nombre?.toLowerCase().trim());
+      if ((!logroUsuario || !logroUsuario?.realizado) && logro?.realizado) {
         alertaLogroObtenido({
-          nombre: logroUsuarioActualizado.logro.nombre,
-          pesoObjetivo: logroUsuarioActualizado.pesoObjetivo
+          nombre: logro.logro.nombre,
+          pesoObjetivo: logro.pesoObjetivo
         });
       }
     });
@@ -117,7 +118,7 @@ const cargarDatos = async () => {
   const usuario = await obtenerUsuario();
   generarParametros(usuario.progresos);
   mostrarResultados(usuario.progresos);
-  // alertaLogroObtenido({ nombre: 'bajar peso', pesoObjetivo: 100 });
+  //alertaLogroObtenido({ nombre: 'bajar peso', pesoObjetivo: 100 });
 };
 
 cargarDatos();
