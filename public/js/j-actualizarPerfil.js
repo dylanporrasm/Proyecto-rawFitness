@@ -8,16 +8,18 @@ btnEnviar.addEventListener("click", async(evento) => {
   const usuario = obtenerUsuarioDelLocalStorage();
   const usuarioActualizado = await modificarUsuario();
 
-  usuario?.logros?.forEach(logro => {
-    const indiceLogro = usuario?.logros?.indexOf(logro);
-    const logroUsuarioActualizado = usuarioActualizado?.logros[indiceLogro];
-    if (!logro?.realizado && logroUsuarioActualizado?.realizado) {
-      alertaLogroObtenido({
-        nombre: logroUsuarioActualizado.logro.nombre,
-        pesoObjetivo: logroUsuarioActualizado.pesoObjetivo
-      });
-    }
-  });
+  if (usuarioActualizado?.logros?.length) {
+    usuarioActualizado.logros.forEach(logro => {
+      const indiceLogro = usuario?.logros?.indexOf(logro);
+      const logroUsuario = usuario?.logros[indiceLogro] ? usuario.logros[indiceLogro] : null;
+      if ((!logroUsuario || !logroUsuario?.realizado) && logroUsuarioActualizado?.realizado) {
+        alertaLogroObtenido({
+          nombre: logroUsuarioActualizado.logro.nombre,
+          pesoObjetivo: logroUsuarioActualizado.pesoObjetivo
+        });
+      }
+    });
+  }
 })
 
 imageInput.addEventListener("change", function() {
