@@ -84,39 +84,42 @@ router.put("/modificar", async (req, res) => {
 
     const usuarioActual = await obtenerUsuarioPorCorreo(usuario.correo);
     if (!usuarioActual) return res.json({ mensaje: 'Usuario no encontrado en la base de datos.' });
-    const lengthProgresos = usuario?.progresos?.length;
 
-    if (!usuarioActual.progresos?.length && !lengthProgresos) {
+    const progresos = ordenarProgresosPorFecha(usuario?.progresos);
+    const progresosUsuarioActual = ordenarProgresosPorFecha(usuarioActual?.progresos);
+    const lengthProgresos = progresos?.length;
+    const lengthProgresosUsuarioActual = progresosUsuarioActual?.length
+
+    if (!lengthProgresosUsuarioActual && !lengthProgresos) {
       usuario.progresos = [{
         peso: usuario.peso,
         fecha: new Date()
       }]
     }
 
-    // if (usuarioActual.progresos?.length !== lengthProgresos) {
-    //   const ultimoPeso = usuario.progresos[lengthProgresos - 1] ? usuario.progresos[lengthProgresos - 1].peso : null;
-    //   if (ultimoPeso && usuario.peso !== ultimoPeso) usuario.peso = ultimoPeso;
-    // }
+    if (lengthProgresosUsuarioActual && lengthProgresos) {
+      const ultimoPesoRegistrado = progresos[lengthProgresos - 1] ? progresos[lengthProgresos - 1].peso : null;
+      const pesoActual = usuarioActual.peso;
+      if (lengthProgresosUsuarioActual !== lengthProgresos) usuario.progresos = progresos;
+      if (ultimoPesoRegistrado && pesoActual !== ultimoPesoRegistrado) usuario.peso = ultimoPesoRegistrado;
+    }
 
-    // for (const logroUsuario of usuarioActual.logros) {
-    //   const { logro: { nombre: nombreLogro } } = logroUsuario;
-    //   console.log('logroUsuario', logroUsuario)
-    //   console.log('usuario?.logros',usuario?.logros)
-    //   const logro = usuario?.logros?.find(({ logro: { nombre } }) => nombre.toLowerCase().trim() === nombreLogro.toLowerCase().trim());
-    //   console.log('logro', logro)
+    for (const logroUsuario of usuarioActual.logros) {
+      const { logro: { nombre: nombreLogro } } = logroUsuario;
+      const logro = usuario?.logros?.find(({ logro: { nombre } }) => nombre?.toLowerCase().trim() === nombreLogro?.toLowerCase().trim());
+      if (logro && !logro.realizado) {
+        const indiceLogro = usuario.logros.indexOf(logro);
+        switch(logro?.logro?.nombre?.toLowerCase().trim()) {
+          case 'subir peso':
+            usuario.logros[indiceLogro].realizado = logro.pesoObjetivo <= usuario.peso;
+            break;
+          case 'bajar peso':
+            usuario.logros[indiceLogro].realizado = logro.pesoObjetivo >= usuario.peso;
+            break;
+        }
+      }
+    }
 
-    //   if (logro &&!logro.realizado) {
-    //     const indiceLogro = usuario.logros.indexOf(logro);
-    //     switch(logro?.nombre?.toLowerCase()?.trim()) {
-    //       case 'subir peso':
-    //         usuario.logros[indiceLogro].realizado = logro.pesoObjetivo <= usuario.peso;
-    //         break;
-    //       case 'bajar peso':
-    //         usuario.logros[indiceLogro].realizado = logro.pesoObjetivo >= usuario.peso;
-    //         break;
-    //     }
-    //   }
-    // }
 
     const usuarioActualizado = await Usuario.findOneAndUpdate(
       { correo: usuarioActual.correo },
@@ -124,7 +127,6 @@ router.put("/modificar", async (req, res) => {
       { new: true }
     );
     usuarioActualizado.logros = await obtenerLogrosUsuario(usuarioActualizado?.logros);
-    usuarioActualizado.progresos = ordenarProgresosPorFecha(usuarioActualizado?.progresos);
     return res.json(usuarioActualizado);
   } catch (error) {
     console.error(error);
