@@ -8,9 +8,8 @@ document.querySelector(".mostrar-resultados").addEventListener("click", async (e
   const usuario = obtenerUsuarioDelLocalStorage();
   const usuarioActualizado = await modificarProgreso();
   agregarParametro();
-  mostrarResultados(usuario.progresos);
-  console.log(usuario.logros)
-  console.log(usuarioActualizado.logros)
+  mostrarResultados(usuarioActualizado.progresos);
+  mostrarGraficaLogros(usuarioActualizado.logros);
   if (usuarioActualizado?.logros?.length) {
     usuarioActualizado.logros.forEach(logro => {
       const logroUsuario = usuario?.logros?.find(({ logro: { nombre } }) => nombre?.toLowerCase().trim() === logro.logro.nombre?.toLowerCase().trim());
@@ -88,29 +87,29 @@ function mostrarResultados(progresos) {
     }];
 
     Plotly.newPlot("grafico",data);
-
-
 }
 
 
 //GRAFICA DE METAS
 
-let grafica=document.getElementById("grafica-metas").getContext("2d");
-
-var chart = new Chart(grafica,{
-  type:"bar",
-  data:{
-    labels:["meta-1","meta-2","meta-3","meta-4"],
-    datasets:[
-      {
-        label:"grafica de metas",
-        backgroundColor:"#09CaDE",
-        data:[90,82,78,100]
-      }
-    ]
-
-  }
-})
+function mostrarGraficaLogros (logros = []) {
+  const grafica = document.getElementById("grafica-metas").getContext("2d");
+  const labels = logros.map(({ logro }) => logro.nombre);
+  const data = logros.map(({ realizado }) => realizado ? 100 : 0);
+  new Chart(grafica,{
+    type:"bar",
+    data:{
+      labels,
+      datasets:[
+        {
+          label:"grafica de metas",
+          backgroundColor:"#09CaDE",
+          data
+        }
+      ]
+    }
+  })
+}
 
 
 //Cargar datos apenas carga la pagina
@@ -118,7 +117,7 @@ const cargarDatos = async () => {
   const usuario = await obtenerUsuario();
   generarParametros(usuario.progresos);
   mostrarResultados(usuario.progresos);
-  //alertaLogroObtenido({ nombre: 'bajar peso', pesoObjetivo: 100 });
+  mostrarGraficaLogros(usuario.logros);
 };
 
 cargarDatos();
